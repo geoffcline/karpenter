@@ -40,3 +40,26 @@ spec:
     # Constrain node capacity type, default="on-demand"
     node.k8s.aws/capacity-type: "spot"
 ```
+## Alternative Provisioners
+
+Karpenter supports multiple provisioners with different defaults. By default, pods will provision using the default provisioner. However, you can select an alternative provisioner using a node selector. This enables you to setup multiple provisioning profiles in a cluster.
+
+*provisioner.yaml*
+
+apiVersion: karpenter.sh/v1alpha3
+kind: Provisioner
+metadata:
+  name: alternative
+spec:
+  cluster:
+    endpoint: ...
+    name: ...
+
+*pod.yaml*
+
+spec:
+  template:
+    spec:
+      nodeSelector:
+        karpenter.sh/provisioner-name: alternative
+
