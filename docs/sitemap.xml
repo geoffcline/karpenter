@@ -6,6 +6,18 @@
   </url><url>
     <loc>http://awslabs.github.com/karpenter/docs/</loc>
   </url><url>
+<<<<<<< HEAD
     <loc>http://awslabs.github.com/karpenter/docs/tags/</loc>
+=======
+    <loc>karpenter/docs/faqs/</loc>
+  </url><url>
+    <loc>karpenter/docs/provisioner-crd/</loc>
+    <lastmod>2017-01-05T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>karpenter/docs/development-guide/</loc>
+  </url><url>
+    <loc>karpenter/</loc>
+    <lastmod>2017-01-05T00:00:00+00:00</lastmod>
+>>>>>>> 44f5aa0 (delete old file)
   </url>
 </urlset>
