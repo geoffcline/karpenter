@@ -198,36 +198,9 @@
   
   
   
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-karpenterdocsfaq-li">
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-karpenterdocsfaqs-li">
     
-      <a href="karpenter/docs/faq/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-karpenterdocsfaq"><span class="">FAQs</span></a>
-    
-    
-  </li>
-
-          
-        
-          
-            
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-karpenterdocsprov-crd-li">
-    
-      <a href="karpenter/docs/prov-crd/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-karpenterdocsprov-crd"><span class="">Provisioner CRD</span></a>
+      <a href="karpenter/docs/faqs/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-karpenterdocsfaqs"><span class="">FAQs</span></a>
     
     
   </li>
@@ -252,9 +225,36 @@
   
   
   
-  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-karpenterdocsdev-guide-li">
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-karpenterdocsprovisioner-crd-li">
     
-      <a href="karpenter/docs/dev-guide/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-karpenterdocsdev-guide"><span class="">Development Guide</span></a>
+      <a href="karpenter/docs/provisioner-crd/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-karpenterdocsprovisioner-crd"><span class="">Provisioner CRD</span></a>
+    
+    
+  </li>
+
+          
+        
+          
+            
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-karpenterdocsdevelopment-guide-li">
+    
+      <a href="karpenter/docs/development-guide/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-karpenterdocsdevelopment-guide"><span class="">Development Guide</span></a>
     
     
   </li>
@@ -434,8 +434,7 @@ commonly used values.</p>
 </span><span style="color:#4e9a06"></span>  <span style="color:#000;font-weight:bold">|</span> jq -r <span style="color:#4e9a06">&#39;.tag_name&#39;</span><span style="color:#204a87;font-weight:bold">)</span>
 </code></pre></div><h3 id="create-a-cluster">Create a Cluster</h3>
 <p>Create a cluster with <code>eksctl</code>. The <a href="eks-config.yaml">example configuration</a> file specifies a basic cluster (name, region), and an IAM role for Karpenter to use.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#8f5902;font-style:italic">## This command won&#39;t work until a release after v0.2.8 is released</span>
-curl -fsSL  https://raw.githubusercontent.com/awslabs/karpenter/<span style="color:#4e9a06">&#34;</span><span style="color:#4e9a06">${</span><span style="color:#000">KARPENTER_VERSION</span><span style="color:#4e9a06">}</span><span style="color:#4e9a06">&#34;</span>/pkg/cloudprovider/aws/docs/eks-config.yaml <span style="color:#4e9a06">\
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">curl -fsSL  https://raw.githubusercontent.com/awslabs/karpenter/<span style="color:#4e9a06">&#34;</span><span style="color:#4e9a06">${</span><span style="color:#000">KARPENTER_VERSION</span><span style="color:#4e9a06">}</span><span style="color:#4e9a06">&#34;</span>/pkg/cloudprovider/aws/docs/eks-config.yaml <span style="color:#4e9a06">\
 </span><span style="color:#4e9a06"></span>  <span style="color:#000;font-weight:bold">|</span> envsubst <span style="color:#4e9a06">\
 </span><span style="color:#4e9a06"></span>  <span style="color:#000;font-weight:bold">|</span> eksctl create cluster -f -
 </code></pre></div><p>This guide uses a regular (un-managed) node group to host Karpenter.</p>
@@ -467,7 +466,7 @@ eksctl create iamidentitymapping <span style="color:#4e9a06">\
 </span><span style="color:#4e9a06"></span>  --arn arn:aws:iam::<span style="color:#4e9a06">${</span><span style="color:#000">AWS_ACCOUNT_ID</span><span style="color:#4e9a06">}</span>:role/KarpenterNodeRole-<span style="color:#4e9a06">${</span><span style="color:#000">CLUSTER_NAME</span><span style="color:#4e9a06">}</span> <span style="color:#4e9a06">\
 </span><span style="color:#4e9a06"></span>  --group system:bootstrappers <span style="color:#4e9a06">\
 </span><span style="color:#4e9a06"></span>  --group system:nodes
-</code></pre></div><p>Now, Karpenter can send requests for new EC2 instances to AWS.</p>
+</code></pre></div><p>Now, Karpenter can send requests for new EC2 instances to AWS and those instances can connect to your cluster.</p>
 <h3 id="install-karpenter-helm-chart">Install Karpenter Helm Chart</h3>
 <p>Use helm to deploy Karpenter to the cluster.</p>
 <p>We created a Kubernetes service account when we created the cluster using
@@ -485,16 +484,19 @@ attributes such as labels and affinity.</p>
 provides instances with the default certificate bundle, and the control plane
 endpoint url.</p>
 <p>Importantly, the <code>ttlSecondsAfterEmpty</code> value configures Karpenter to
-deprovision empty nodes.</p>
+deprovision empty nodes. This behavior can be disabled by leaving the value
+undefined.</p>
+<p>Review the <a href="/docs/provisioner-crd">provsioner CRD</a> for more information. For example,
+<code>ttlSecondsUntilExpired</code> configures Karpenter to deprovision
+nodes when a maximum age is reached.</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">cat <span style="color:#4e9a06">&lt;&lt;EOF | kubectl apply -f -
-</span><span style="color:#4e9a06">apiVersion: provisioning.karpenter.sh/v1alpha2
+</span><span style="color:#4e9a06">apiVersion: karpenter.sh/v1alpha3
 </span><span style="color:#4e9a06">kind: Provisioner
 </span><span style="color:#4e9a06">metadata:
 </span><span style="color:#4e9a06">  name: default
 </span><span style="color:#4e9a06">spec:
 </span><span style="color:#4e9a06">  cluster:
 </span><span style="color:#4e9a06">    name: ${CLUSTER_NAME}
-</span><span style="color:#4e9a06">    caBundle: $(aws eks describe-cluster --name ${CLUSTER_NAME} --query &#34;cluster.certificateAuthority.data&#34; --output json)
 </span><span style="color:#4e9a06">    endpoint: $(aws eks describe-cluster --name ${CLUSTER_NAME} --query &#34;cluster.endpoint&#34; --output json)
 </span><span style="color:#4e9a06">  ttlSecondsAfterEmpty: 30
 </span><span style="color:#4e9a06">EOF</span>
@@ -537,7 +539,7 @@ Karpenter should deprovision the now empty nodes.</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl delete deployment inflate
 kubectl logs -f -n karpenter <span style="color:#204a87;font-weight:bold">$(</span>kubectl get pods -n karpenter -l <span style="color:#000">karpenter</span><span style="color:#ce5c00;font-weight:bold">=</span>controller -o name<span style="color:#204a87;font-weight:bold">)</span>
 </code></pre></div><h3 id="manual-node-deprovisioning">Manual Node Deprovisioning</h3>
-<p>If you delete a node with kubectl, Karpenter deprovisions the corresponding instance.</p>
+<p>If you delete a node with kubectl, Karpenter terminates the corresponding instance. More specifically, Karpenter adds a node finalizer to properly cordon and drain nodes before they are terminated.</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">kubectl delete node <span style="color:#000">$NODE_NAME</span>
 </code></pre></div><h2 id="cleanup">Cleanup</h2>
 <p>It&rsquo;s important to both delete the cluster instances and the cluster control
