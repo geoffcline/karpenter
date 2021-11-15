@@ -45,6 +45,7 @@
         //get version string from match result
         let Version = result[1]
 
+<<<<<<< HEAD
         const target = document.querySelector(".td-content > h1")
 
         if (Version = "pre"){
@@ -56,3 +57,10 @@
         
     }
 </script>
+=======
+        //insert new element before h1 of main content element
+        const target = document.querySelector(".td-content > h1")
+        target.parentNode.insertBefore(WarningElement(Version), target)
+    }
+</script>
+>>>>>>> 888b93e (init draft of script to insert warning script)
