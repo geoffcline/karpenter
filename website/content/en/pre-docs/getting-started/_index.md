@@ -181,3 +181,8 @@ EOF
 
 
 
+- first run
+
+- grafana dashbaord
+
+- cleanup
