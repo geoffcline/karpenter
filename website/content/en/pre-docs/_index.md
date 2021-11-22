@@ -25,4 +25,6 @@ On-going cluster operator tasks include upgrading and decomissioning nodes.
 As an application developer, you can make specific requests for capacity and features you want from the nodes running your pods.
 Karpenter is designed to quickly create the best possible nodes to meet those needs and schedule the pods to run on them.
 
-Learn more about Karpenter and how to get started below.
+Learn more about Karpenter and how to get started below. 
+
+

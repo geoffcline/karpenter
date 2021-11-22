@@ -16,12 +16,27 @@ but currently only supports AWS. Contributions are welcomed.
 This guide should take less than 1 hour to complete, and cost less than $0.25.
 Follow the clean-up instructions to reduce any charges.
 
-## Prereqs
+## Connect to Cluster
 
-- Look at tools.md 
-- expandy?
+This guide expects you have an existing EKS cluster, and `kubectl` is configured to communicate with the cluster.
+
+Alternatively, you can create a new EKS cluster. 
+
+{{< rawhtml >}}
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Create Cluster</h5>
+    <p class="card-text">Create a cluster on AWS EKS, including installing tools (eksctl, kubectl, helm).</p>
+    <a href="#" class="btn btn-primary">Create Cluster</a>
+  </div>
+</div>
+{{< /rawhtml >}}
 
 ## Install Karpenter
+
+Karpenter itself can run anywhere, including on [self-managed node groups](https://docs.aws.amazon.com/eks/latest/userguide/worker.html), [managed node groups](https://docs.aws.amazon.com/eks/latest/userguide/managed-node-groups.html), or [AWS Fargate](https://aws.amazon.com/fargate/).
+
+Karpenter will provision EC2 instances in your account.
 
 ### Tag Subnets
 
@@ -141,8 +156,28 @@ EOF
 
 ## Next Steps
 
-- first run
+{{< rawhtml >}}
+<div class="row">
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Guide Cleanup</h5>
+          <p class="card-text">Delete Karpenter and associated resources created in this guide.</p>
+          <a href="#" class="btn btn-primary">Remove Karpenter</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Grafana Dashboards</h5>
+          <p class="card-text">Install a premade set of Grafana dashboards to monitor Karpenter.</p>
+          <a href="#" class="btn btn-primary">Install Dashboards</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{{< /rawhtml >}}
 
-- grafana dashbaord
 
-- cleanup
+
