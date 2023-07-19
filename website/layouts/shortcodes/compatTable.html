@@ -1,0 +1,26 @@
+{{ $arg := .Get 0 }}
+{{ $dataFile := index .Site.Data $arg }}
+
+<table>
+  <tr>
+    <th>
+        Karpenter Version
+    </th>
+    {{ range $dataFile.versionCompatibility }}
+      <td>
+        {{ .appVersion }}
+      </td>
+    {{ end }}
+  </tr>
+  <tr>
+    <th>
+      K8s Version
+    </th>
+    {{ range $dataFile.versionCompatibility }}
+      <td>
+        {{ .minK8sVersion }} - {{ .maxK8sVersion }} 
+      </td>
+    {{ end }}
+  </tr>
+  
+</table>

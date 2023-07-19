@@ -12,6 +12,8 @@ Karpenter is an open-source node provisioning project built for Kubernetes.
 Adding Karpenter to a Kubernetes cluster can dramatically improve the efficiency and cost of running workloads on that cluster.
 Karpenter works by:
 
+{{< compatTable "compat" >}}
+
 * **Watching** for pods that the Kubernetes scheduler has marked as unschedulable
 * **Evaluating** scheduling constraints (resource requests, nodeselectors, affinities, tolerations, and topology spread constraints) requested by the pods
 * **Provisioning** nodes that meet the requirements of the pods
